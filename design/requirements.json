@@ -1,0 +1,2088 @@
+{
+  "schema_version": 1,
+  "requirements": [
+    {
+      "id": "A01",
+      "requirement": "Portable skill: concise instructions for selecting checks, interpreting findings, requesting evidence, and verifying repairs. Load specialized guidance only when applicable.",
+      "status": "implemented",
+      "sources": [
+        "src/coding_companion/host.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_host_install_preserves_existing_and_changed_files"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "A02",
+      "requirement": "Model-independent diagnostic core: execute checks and normalize results without requiring an LLM for basic operation.",
+      "status": "implemented",
+      "sources": [
+        "src/coding_companion/engine.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_python_check_never_imports_source"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "A03",
+      "requirement": "Project adapters: map technologies and existing project commands to suitable checks; do not assume every project uses npm, Python, or one framework.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/adapters.py"
+      ],
+      "tests": [
+        "tests/test_web.py::WebTests.test_reviewable_installed_web_specs_without_execution"
+      ],
+      "remaining": [
+        "Tool-specific parsers and broader customer-project language fixtures remain open."
+      ]
+    },
+    {
+      "id": "A04",
+      "requirement": "Host adapters: integrate with each agent's documented events, tools, permissions, and notification mechanism.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/hooks.py",
+        "src/coding_companion/hook_entry.py",
+        "tools/validate_codex.py::validate"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_real_hook_context_and_reused_snapshot",
+        "tests/test_features.py::FeatureTests.test_hook_launcher_works_without_pythonpath_or_global_installation",
+        "tests/test_features.py::FeatureTests.test_hook_context_drops_whole_observations_without_corrupting_json"
+      ],
+      "remaining": [
+        "User review/trust of exact hook configuration and actual active-turn delivery certification remain outstanding."
+      ]
+    },
+    {
+      "id": "A05",
+      "requirement": "CLI interface: support discovery, preflight, scan, watch, status, finding inspection, verification, and health checks. These are proposed interfaces, not implemented commands.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/cli.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_cli_flags_before_and_after_command"
+      ],
+      "remaining": [
+        "Review precise CLI behavior against every target interface and alias."
+      ]
+    },
+    {
+      "id": "A06",
+      "requirement": "Optional MCP interface: expose structured tools and findings to compatible agent hosts; MCP availability alone does not establish unsolicited same-turn delivery.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/mcp_adapter.py",
+        "tools/validate_optional.py::validate_mcp"
+      ],
+      "tests": [],
+      "remaining": [
+        "SDK transport is validated separately by tools/validate_optional.py; actual agent host remains unverified."
+      ]
+    },
+    {
+      "id": "A07",
+      "requirement": "Scheduler: prioritize relevant work, limit resource usage, and coordinate repeated requests.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/scheduler.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_real_parallel_worker_limits"
+      ],
+      "remaining": [
+        "Run independent scheduling load/soak and overhead trials."
+      ]
+    },
+    {
+      "id": "A08",
+      "requirement": "Evidence store: retain bounded, redacted diagnostics separately from source code and release packages.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/native.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_native_real_clean_command_and_redaction"
+      ],
+      "remaining": [
+        "Certify all evidence types and bounded retention under load."
+      ]
+    },
+    {
+      "id": "A09",
+      "requirement": "Memory and improvement subsystem: record scoped verified lessons, evaluate updates, and version changes.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/improvement.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_lesson_candidate_evaluate_activate_rollback"
+      ],
+      "remaining": [
+        "Automatic independently isolated candidate execution remains unimplemented."
+      ]
+    },
+    {
+      "id": "A10",
+      "requirement": "Mutation ownership: the companion reports and proposes; the coding agent normally edits. Any companion repair mode must avoid concurrent edits and verify every patch.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/engine.py"
+      ],
+      "tests": [
+        "tests/test_scenarios.py::ScenarioNativeTests.test_native_matrix_current_repair_and_weakened_contract_rejection"
+      ],
+      "remaining": [
+        "Automatic repair mutation ownership remains outside implemented scope."
+      ]
+    },
+    {
+      "id": "A11",
+      "requirement": "Optional model analysis: use for hypothesis generation or difficult interpretation, keep its output labeled, and continue deterministic checks if the model service fails.",
+      "status": "deferred",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Implement optional labeled model-analysis hypotheses, budget controls and deterministic fallback."
+      ]
+    },
+    {
+      "id": "A12",
+      "requirement": "Optional UI: show coverage, active checks, actionable findings, evidence, budgets, and delivery health without making a dashboard necessary for core operation.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "A13",
+      "requirement": "Version 1 has no frontend; CLI, structured tools, and Markdown reports provide agent and human interfaces.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "A14",
+      "requirement": "Require no paid service, hosted backend/database, or independent model API; retain a local/offline operating mode.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "A15",
+      "requirement": "Language-independent probe contracts and explicit host capability tiers provide portability without claiming that a model lacking tools can execute checks.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "P01",
+      "requirement": "Identify repository/worktree boundaries, monorepos, packages, languages, frameworks, runtimes, entry points, and generated files.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/discovery.py"
+      ],
+      "tests": [
+        "tests/test_web.py::WebTests.test_monorepo_package_hoisted_tools_have_distinct_ids"
+      ],
+      "remaining": [
+        "Broader framework/runtime/worktree discovery remains to be certified."
+      ]
+    },
+    {
+      "id": "P02",
+      "requirement": "Identify build, test, lint, formatting, migration, startup, and deployment commands from actual project configuration.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/adapters.py"
+      ],
+      "tests": [
+        "tests/test_web.py::WebTests.test_reviewable_installed_web_specs_without_execution"
+      ],
+      "remaining": [
+        "Broader formatting/migration/startup/deployment adapters remain open."
+      ]
+    },
+    {
+      "id": "P03",
+      "requirement": "Discover databases, queues, caches, object stores, APIs, model endpoints, and required services.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/discovery.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_declared_requirements_and_services"
+      ],
+      "remaining": [
+        "Declared services do not establish real availability or credentials."
+      ]
+    },
+    {
+      "id": "P04",
+      "requirement": "Record permitted environments and actions; distinguish local development, isolated tests, staging, and production.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "P05",
+      "requirement": "Read relevant project conventions and user requirements without treating arbitrary source text as trusted policy.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "P06",
+      "requirement": "Capture acceptance criteria, important user journeys, business invariants, and authorization rules where provided.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/discovery.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_declared_requirements_and_services"
+      ],
+      "remaining": [
+        "Broader journey/business-rule inputs require individually reviewed fixtures."
+      ]
+    },
+    {
+      "id": "P07",
+      "requirement": "Capture traffic assumptions: request mix, concurrency, data sizes, peak load, latency/error targets, and infrastructure resources.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "P08",
+      "requirement": "Capture supported browsers, viewports, devices, languages, time zones, and accessibility expectations.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "P09",
+      "requirement": "Capture model identity, revision, runtime, hardware, context limits, and intended inference or training use where applicable.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/packs.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_model_pack_exact_artifact_and_context"
+      ],
+      "remaining": [
+        "Live hardware/runtime/model-serving checks remain open."
+      ]
+    },
+    {
+      "id": "P10",
+      "requirement": "Record unknown requirements explicitly; correct business behavior cannot always be inferred from existing code.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "P11",
+      "requirement": "Create an initial baseline so existing failures are distinguishable from newly introduced failures.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/watch.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::WatchIntegrationTests.test_real_watcher_mailbox_change_and_stop"
+      ],
+      "remaining": [
+        "Certify baseline semantics on additional hosts and customer projects."
+      ]
+    },
+    {
+      "id": "P12",
+      "requirement": "Publish a coverage map: applicable, implemented, unavailable, excluded, and not yet verified checks.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/engine.py"
+      ],
+      "tests": [
+        "tests/test_web.py::WebTests.test_missing_tools_and_config_are_visible_blocks"
+      ],
+      "remaining": [
+        "Complete all advertised per-family coverage statuses and version fixtures."
+      ]
+    },
+    {
+      "id": "E01",
+      "requirement": "Observe available file-change, tool-completion, command-output, build/test, service-start, and session events.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/watch.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::WatchIntegrationTests.test_real_watcher_mailbox_change_and_stop"
+      ],
+      "remaining": [
+        "Live tool/session/service event integrations remain unverified."
+      ]
+    },
+    {
+      "id": "E02",
+      "requirement": "Handle dependency manifests, lockfiles, configuration, schemas, migrations, API contracts, prompts, and model/index artifacts as potentially broad-impact changes.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/impact.py"
+      ],
+      "tests": [
+        "tests/test_web.py::WebTests.test_config_and_unknown_assets_force_project_scope"
+      ],
+      "remaining": [
+        "Broader language/configuration graph adapters remain open."
+      ]
+    },
+    {
+      "id": "E03",
+      "requirement": "Detect changes made by users or other tools as well as the coding agent when the host exposes them.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/watch.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::WatchIntegrationTests.test_real_watcher_mailbox_change_and_stop"
+      ],
+      "remaining": [
+        "Unsaved buffers and remote changes remain outside observation scope."
+      ]
+    },
+    {
+      "id": "E04",
+      "requirement": "Document visibility limits such as unsaved editor buffers and inaccessible remote resources.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "E05",
+      "requirement": "Debounce rapid saves and incomplete writes; distinguish temporary editing states from stable defects.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/watch.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::WatchIntegrationTests.test_real_watcher_mailbox_change_and_stop"
+      ],
+      "remaining": [
+        "Independent rapid-save and incomplete-write stress fixtures remain open."
+      ]
+    },
+    {
+      "id": "E06",
+      "requirement": "Maintain an impact map connecting changed files to consumers, tests, routes, services, schemas, and downstream data.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/impact.py"
+      ],
+      "tests": [
+        "tests/test_web.py::WebTests.test_typescript_alias_inheritance_jsonc_and_specificity"
+      ],
+      "remaining": [
+        "Conditional exports, bundler aliases, full JS parsing and non-Python/JS graphs remain open."
+      ]
+    },
+    {
+      "id": "E07",
+      "requirement": "Use fast relevant checks during editing; schedule browser, integration, load, and model checks at suitable checkpoints.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "E08",
+      "requirement": "Cancel superseded jobs and invalidate results whose tested inputs have changed.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/engine.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_changed_during_check_superseded"
+      ],
+      "remaining": [
+        "Fast interruption of already-running static parsers remains open."
+      ]
+    },
+    {
+      "id": "E09",
+      "requirement": "Detect changes during a check; use consistent snapshots where feasible or label mixed-version observations inconclusive.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/engine.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_changed_during_check_superseded"
+      ],
+      "remaining": [
+        "Broader live-service/mixed-state acceptance remains open."
+      ]
+    },
+    {
+      "id": "E10",
+      "requirement": "Limit CPU, RAM, GPU, subprocesses, network calls, output, time, and optional model spending.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/processes.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_native_timeout_and_output_limit_not_pass"
+      ],
+      "remaining": [
+        "Filesystem/network/CPU/GPU isolation and POSIX memory enforcement remain open."
+      ]
+    },
+    {
+      "id": "E11",
+      "requirement": "Prevent duplicate work, starvation of slower checks, recursive watcher loops, and collisions between sessions/worktrees.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/scheduler.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_fair_scheduler_and_coalescing"
+      ],
+      "remaining": [
+        "Broader competing-session/worktree and soak certification remains open."
+      ]
+    },
+    {
+      "id": "E12",
+      "requirement": "Support restricted networks, offline checks, reconnects, interruptions, and resumable state.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/mailbox.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_crash_replay_does_not_duplicate_execution"
+      ],
+      "remaining": [
+        "Remote reconnect and restricted-network host matrix remains open."
+      ]
+    },
+    {
+      "id": "E13",
+      "requirement": "Clean up descendant processes, temporary files, ports, locks, databases, and subscriptions on cancellation or shutdown.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/processes.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_job_kills_descendant_after_parent_success"
+      ],
+      "remaining": [
+        "Broader OS cleanup/ports/subscription fixtures remain open."
+      ]
+    },
+    {
+      "id": "E14",
+      "requirement": "Measure event-to-detection time separately from check duration and host delivery delay.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "H01",
+      "requirement": "Detect host, version, operating system, local/cloud orchestration and execution, available tools, sandbox policy, and supported events.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "H02",
+      "requirement": "Publish tested compatibility levels: automatic same-turn delivery, checkpoint polling, manual invocation, or unsupported.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/host.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_hook_configuration_only_information_and_project_binding"
+      ],
+      "remaining": [
+        "Actual host/version certification remains pending."
+      ]
+    },
+    {
+      "id": "H03",
+      "requirement": "For supported local Codex workflows, trusted asynchronous command hooks can return findings at the next safe point in an active turn. This does not interrupt an in-flight model request or already-executed action. [Official hooks documentation](https://learn.chatgpt.com/docs/hooks)",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/hooks.py",
+        "src/coding_companion/hook_entry.py",
+        "tools/validate_codex.py::validate"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_real_hook_context_and_reused_snapshot",
+        "tests/test_features.py::FeatureTests.test_hook_launcher_works_without_pythonpath_or_global_installation",
+        "tests/test_features.py::FeatureTests.test_hook_context_drops_whole_observations_without_corrupting_json"
+      ],
+      "remaining": [
+        "User review/trust of exact hook configuration and actual active-turn delivery certification remain outstanding."
+      ]
+    },
+    {
+      "id": "H04",
+      "requirement": "Do not assume local command hooks work in cloud orchestration. Advertise cloud behavior only after testing the specific supported integration. [Official hooks documentation](https://learn.chatgpt.com/docs/hooks)",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "H05",
+      "requirement": "Where a product owns a supported Codex app-server connection, investigate structured tool-output delivery for active work. Do not claim access to arbitrary existing desktop sessions. [Official app-server documentation](https://learn.chatgpt.com/docs/app-server)",
+      "status": "deferred",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Implement and test an authorized app-server delivery adapter if this scope is retained."
+      ]
+    },
+    {
+      "id": "H06",
+      "requirement": "Keep detector output machine-originated; do not present it as a human instruction or promote raw untrusted logs into trusted instruction context.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/hooks.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_hook_configuration_only_information_and_project_binding"
+      ],
+      "remaining": [
+        "Broader hostile host payload fixtures remain open."
+      ]
+    },
+    {
+      "id": "H07",
+      "requirement": "Use explicit CLI/MCP checkpoints when a host lacks reliable live delivery, and make that fallback visible.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/host.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::WatchIntegrationTests.test_real_watcher_mailbox_change_and_stop"
+      ],
+      "remaining": [
+        "Certify fallback visibility in real host sessions."
+      ]
+    },
+    {
+      "id": "H08",
+      "requirement": "Detect delivery failure, stale session IDs, duplicates, reconnects, and host/version incompatibility.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "H09",
+      "requirement": "A model endpoint without tools needs a harness that executes checks and returns findings. Model portability is different from host compatibility.",
+      "status": "deferred",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Provide a tool-executing harness for tool-less model endpoints if advertised."
+      ]
+    },
+    {
+      "id": "H10",
+      "requirement": "Support notifications to the agent separately from notifications to the human; keep human alerts configurable and limited to meaningful events.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "H11",
+      "requirement": "Installing a skill does not automatically install runtimes, grant service access, or authorize hooks.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/host.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_host_install_preserves_existing_and_changed_files"
+      ],
+      "remaining": [
+        "Actual host/runtime installation certification remains separate."
+      ]
+    },
+    {
+      "id": "F01",
+      "requirement": "Check outcomes: passed, failed, execution-error, skipped, blocked, not-applicable, inconclusive, cancelled, and superseded.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/contracts.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_zero_tests_rejected_runtime_and_schema"
+      ],
+      "remaining": [
+        "Review every outcome transition and runtime/schema conformance case."
+      ]
+    },
+    {
+      "id": "F02",
+      "requirement": "Finding classifications: confirmed application defect, confirmed check/environment failure, predicted risk, and inconclusive observation.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/contracts.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_heuristics_remain_predicted_risks"
+      ],
+      "remaining": [
+        "Broader classification and service-failure fixtures remain open."
+      ]
+    },
+    {
+      "id": "F03",
+      "requirement": "Separate severity, confidence, urgency, and whether the issue blocks the current task.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "F04",
+      "requirement": "Include stable finding/rule IDs, detector version, repository/worktree/session, timestamp, input hashes, environment fingerprint, and source locations at the tested revision.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/storage.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_seed_dedupe_immutable_observation_schema"
+      ],
+      "remaining": [
+        "Full repository/worktree/session identity compatibility remains open."
+      ]
+    },
+    {
+      "id": "F05",
+      "requirement": "Include expected behavior and its basis: requirement, contract, invariant, or documented rule.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "F06",
+      "requirement": "Include actual behavior, exact reproduction command/inputs, exit status, and bounded redacted evidence references.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "F07",
+      "requirement": "Include likely cause as a hypothesis unless verified, impact, a concrete next action, and material alternative fixes.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "F08",
+      "requirement": "Include a verification plan and the circumstances under which the finding would no longer apply.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "F09",
+      "requirement": "Preserve test discovery/execution/skip counts, workload definitions, browser states, and other limits needed to interpret results.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/parsers.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_junit_counts_skips_and_failures"
+      ],
+      "remaining": [
+        "Broader native-tool count/workload evidence adapters remain open."
+      ]
+    },
+    {
+      "id": "F10",
+      "requirement": "Link screenshots, traces, network records, query plans, metrics, or fixtures rather than flooding model context.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "F11",
+      "requirement": "Track lifecycle: new, acknowledged, investigating, fixing, verified-resolved, dismissed, accepted-risk, reopened, and stale.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "F12",
+      "requirement": "Root-cause grouping: distinguish one unavailable database causing many test failures from many independent defects.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "F13",
+      "requirement": "Deduplicate unchanged findings; suppressions require scope, reason, and optional expiry.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/maintenance.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_suppression_cursor_and_expiry"
+      ],
+      "remaining": [
+        "Broader lifecycle scope and expiry acceptance remains open."
+      ]
+    },
+    {
+      "id": "F14",
+      "requirement": "Never mark a check passed because its tool is missing, it timed out, it discovered zero tests, or it was never run.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/parsers.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_native_missing_junit_is_execution_error"
+      ],
+      "remaining": [
+        "Broader tool/parser failure certification remains open."
+      ]
+    },
+    {
+      "id": "F15",
+      "requirement": "Claim resolution only after relevant verification on current inputs. A patch or an agent's assertion is not verification.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/engine.py"
+      ],
+      "tests": [
+        "tests/test_scenarios.py::ScenarioNativeTests.test_native_matrix_current_repair_and_weakened_contract_rejection"
+      ],
+      "remaining": [
+        "Broader independent behavior and live-service state verification remains open."
+      ]
+    },
+    {
+      "id": "R01",
+      "requirement": "Reproduce and classify the issue before selecting a remedy when feasible.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "R02",
+      "requirement": "Use a causal chain to fix upstream causes rather than repeatedly patch downstream symptoms.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "R03",
+      "requirement": "Offer the smallest suitable repair and explain material tradeoffs; preserve the user's feature intent.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "R04",
+      "requirement": "Avoid silently weakening tests, suppressing errors, replacing real integrations with fake behavior, or adding unrelated infrastructure to obtain green results.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/engine.py"
+      ],
+      "tests": [
+        "tests/test_web.py::WebTests.test_weakened_javascript_test_cannot_verify_native_repair"
+      ],
+      "remaining": [
+        "Additional acceptance formats and independent adjacent behavior checks remain open."
+      ]
+    },
+    {
+      "id": "R05",
+      "requirement": "Hand evidence and relevant context to the coding agent; route to appropriate tools or specialized skills when actually available.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "R06",
+      "requirement": "After changes, rerun focused verification; broaden testing when dependency impact or new evidence warrants it.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/engine.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_fix_verify_and_verified_memory"
+      ],
+      "remaining": [
+        "Broader dependency impact and meaningful regression selection remain open."
+      ]
+    },
+    {
+      "id": "R07",
+      "requirement": "Validate that the original failure is fixed and important adjacent behavior still works.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/engine.py"
+      ],
+      "tests": [
+        "tests/test_scenarios.py::ScenarioNativeTests.test_native_matrix_current_repair_and_weakened_contract_rejection"
+      ],
+      "remaining": [
+        "Broader customer-project adjacent behavior remains unverified."
+      ]
+    },
+    {
+      "id": "R08",
+      "requirement": "Bound unsuccessful retries and escalate with a precise missing-input or blocked-check report.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "R09",
+      "requirement": "Preserve failed approaches with their evidence when useful, so the agent does not loop through the same guesses.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "R10",
+      "requirement": "Keep unresolved issues and accepted risks visible at completion, separately from verified fixes.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "M01",
+      "requirement": "Separate transient session state, project memory, workspace/team memory, and optional generic reusable knowledge.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "M02",
+      "requirement": "Store useful facts such as verified commands, environment constraints, reproduced failures, accepted fixes, rejected alerts, and user preferences\u2014not indiscriminate transcripts.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "M03",
+      "requirement": "Scope memory by repository/customer; do not silently transfer private content between projects or users.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/storage.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_database_rejects_foreign_project"
+      ],
+      "remaining": [
+        "Team/workspace knowledge and access-control certification remain open."
+      ]
+    },
+    {
+      "id": "M04",
+      "requirement": "Record provenance, timestamp, tool/version, environment, evidence, and applicability for each lesson.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "M05",
+      "requirement": "Distinguish observed facts, hypotheses, user preferences, and reviewed rules.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "M06",
+      "requirement": "Detect conflicting/outdated memory; expire or revalidate assumptions after environment/dependency changes.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "M07",
+      "requirement": "Retrieve only task-relevant memory within a context budget.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/storage.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_fix_verify_and_verified_memory"
+      ],
+      "remaining": [
+        "Independent retrieval relevance/conflict evaluations remain open."
+      ]
+    },
+    {
+      "id": "M08",
+      "requirement": "Let users inspect, correct, export, delete, disable, or configure retention for memory.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/maintenance.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_withdraw_finding_scrubs_history_and_dependencies"
+      ],
+      "remaining": [
+        "Broader correction/disable/export/retention acceptance remains open."
+      ]
+    },
+    {
+      "id": "M09",
+      "requirement": "Protect memory against poisoned logs, hostile documents, malicious repository text, and unverified agent suggestions.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "M10",
+      "requirement": "Propose improvements from verified outcomes, reproduce them, add suitable regression cases, evaluate on held-out cases, then promote versioned changes.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/improvement.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_lesson_candidate_evaluate_activate_rollback"
+      ],
+      "remaining": [
+        "Automatic isolated patch generation/evaluation remains open."
+      ]
+    },
+    {
+      "id": "M11",
+      "requirement": "Keep installed policy/skill packages separate from mutable runtime state; avoid invisible rewriting of trusted instructions.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "M12",
+      "requirement": "Allow optional learned detectors, ranking, retrieval, or trained components when explicitly selected; define the purpose, training method, datasets, execution location, budget, and rights first.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/learning.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_local_ranking_requires_authorization_and_heldout"
+      ],
+      "remaining": [
+        "Broader detector/retrieval learning remains optional and unimplemented."
+      ]
+    },
+    {
+      "id": "M13",
+      "requirement": "Track dataset/model lineage, privacy exclusions, transforms, retention, versioning, evaluation, deployment, rollback, and disable controls for trained components.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/learning.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_withdraw_training_lineage_retires_model"
+      ],
+      "remaining": [
+        "Broader trained component lineage/unlearning certification remains open."
+      ]
+    },
+    {
+      "id": "M14",
+      "requirement": "Permission to store memory does not imply permission to upload it, build a shared dataset, train a model, or distribute artifacts.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "M15",
+      "requirement": "Memory and skill improvements do not update the underlying assistant's weights. Provider-side training/data use requires separate provider/account controls. [Official authentication and data-policy boundary](https://learn.chatgpt.com/docs/auth)",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "M16",
+      "requirement": "Improvement can occur during use or through scheduled maintenance; daily execution requires a configured scheduler and should report meaningful changes rather than unchanged status.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "M17",
+      "requirement": "Maintain a challenge journal for both the coding agent and companion, including task context, symptoms, attempts, failed approaches, blockers, and evidence.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/storage.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_withdraw_finding_scrubs_history_and_dependencies"
+      ],
+      "remaining": [
+        "Review exact journal context/attempt/evidence retention behavior."
+      ]
+    },
+    {
+      "id": "M18",
+      "requirement": "Distinguish unsuccessful attempts, hypotheses, and unresolved challenges from verified remedies.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "M19",
+      "requirement": "Retrieve recurring applicable challenges/lessons with version, environment, provenance, retention, inspection, and deletion controls.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "M20",
+      "requirement": "Diagnose companion failures and propose self-repair patches in an isolated package copy.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/updates.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_package_attestation_exact_hash_and_review_gate"
+      ],
+      "remaining": [
+        "Automatic self-diagnosis, patch generation and isolated evaluation remain unimplemented."
+      ]
+    },
+    {
+      "id": "M21",
+      "requirement": "Evaluate self-repairs before activation, retain the last-known-good version, drain/restart affected workers, and support rollback.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/updates.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_package_stage_launch_and_compatible_rollback"
+      ],
+      "remaining": [
+        "Independently executed evaluation and worker-drain/restart certification remain open."
+      ]
+    },
+    {
+      "id": "M22",
+      "requirement": "Support optional bounded local training/ranking from authorized challenge outcomes, with dataset lineage and held-out evaluation.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/learning.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_local_ranking_requires_authorization_and_heldout"
+      ],
+      "remaining": [
+        "Independent real authorized dataset evaluation remains unperformed."
+      ]
+    },
+    {
+      "id": "M23",
+      "requirement": "Keep memory approval, executable rule changes, package updates, training, and sharing under separate explicit policies.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "M24",
+      "requirement": "Convert demonstrated missed defects and recurring blockers into regression fixtures and measured improvements.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "S01",
+      "requirement": "Operate locally where feasible; telemetry and remote analysis are explicit features with documented data flows.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "S02",
+      "requirement": "Minimize inputs and redact secrets before logs, screenshots, findings, memory, artifacts, model calls, or uploads.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/common.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_secret_canaries_redacted"
+      ],
+      "remaining": [
+        "All future screenshot/model/upload evidence needs dedicated redaction gates."
+      ]
+    },
+    {
+      "id": "S03",
+      "requirement": "Respect host sandbox, user authorization, workspace limits, and service policies; no automatic permission bypass.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "S04",
+      "requirement": "Treat install scripts and tests as executable code that may mutate files, databases, or networks; isolate them appropriately.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/processes.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_job_kills_descendant_after_parent_success"
+      ],
+      "remaining": [
+        "Filesystem/network isolation is not supplied; untrusted candidate evaluation remains unsupported."
+      ]
+    },
+    {
+      "id": "S05",
+      "requirement": "Restrict paths, executable commands/arguments, network destinations, and production access; avoid shell interpolation of untrusted content.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/native.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_external_command_file_trust_cannot_drift"
+      ],
+      "remaining": [
+        "Independent sandbox authority restrictions remain open."
+      ]
+    },
+    {
+      "id": "S06",
+      "requirement": "Store credentials using suitable credential mechanisms; never commit them to the repository or diagnostic examples.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "S07",
+      "requirement": "Validate external results against schemas and preserve data/instruction separation, especially in hook context.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/contracts.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_mailbox_forbids_foreign_and_arbitrary_commands"
+      ],
+      "remaining": [
+        "Broader external/host payload schema and hostile-output fixtures remain open."
+      ]
+    },
+    {
+      "id": "S08",
+      "requirement": "Separate each customer's evidence, memory, subscriptions, and learned artifacts with access controls.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/storage.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_project_state_roots_separate"
+      ],
+      "remaining": [
+        "Shared-team credential/access controls remain unimplemented."
+      ]
+    },
+    {
+      "id": "S09",
+      "requirement": "Offer retention, deletion/export, encryption where appropriate, and minimized audit records.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/maintenance.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_withdraw_removes_owned_backup_and_flags_external_export"
+      ],
+      "remaining": [
+        "Encryption-at-rest and independent retention/export acceptance remain open."
+      ]
+    },
+    {
+      "id": "S10",
+      "requirement": "Respect ownership/license restrictions of model artifacts, dependencies, datasets, screenshots, and shared lessons.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "S11",
+      "requirement": "Document provider data-use configuration; do not claim a skill overrides a provider's policies or that private GitHub visibility prevents all external processing.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "S12",
+      "requirement": "Synthetic fixtures should cover secrets/cross-tenant leakage without needing real customer data.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/scenario_probe.py"
+      ],
+      "tests": [
+        "tests/test_scenarios.py::ScenarioTests.test_real_tenant_matrix_detects_leak_and_clean_denial"
+      ],
+      "remaining": [
+        "Broader cross-tenant artifacts/logs/background-job scenarios remain open."
+      ]
+    },
+    {
+      "id": "D01",
+      "requirement": "Private GitHub ownership and authorized collaborator/download access; do not make the repository public automatically.",
+      "status": "deferred",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Create or inspect an authorized private repository; no Git remote exists in this checkout."
+      ]
+    },
+    {
+      "id": "D02",
+      "requirement": "Distributable Agent Skill entry point with focused name/description, scripts, and relevant references. [Official skill packaging documentation](https://learn.chatgpt.com/docs/build-skills)",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/host.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_host_install_preserves_existing_and_changed_files"
+      ],
+      "remaining": [
+        "Real host loading and fallback certification remain pending."
+      ]
+    },
+    {
+      "id": "D03",
+      "requirement": "Separate portable core, host adapters, project/check packs, schemas, fixtures/evaluations, and maintained documentation.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "D04",
+      "requirement": "Include a quick start, runtime prerequisites, supported-version matrix, privacy/data-flow description, configuration examples, and limitations.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "D05",
+      "requirement": "Choose an explicit license/distribution policy; private visibility alone does not grant reuse rights.",
+      "status": "implemented",
+      "sources": [
+        "tools/build_release.py"
+      ],
+      "tests": [
+        "tests/test_release.py::ReleaseTests.test_wheel_and_source_include_license_and_new_probe_without_state"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "D06",
+      "requirement": "Support authenticated clone/release download and version pinning; keep credentials out of installed files.",
+      "status": "partial",
+      "sources": [
+        "tools/download_release.py::download"
+      ],
+      "tests": [
+        "tests/test_download.py::DownloadTests.test_exact_private_pin_and_no_credential_files",
+        "tests/test_download.py::DownloadTests.test_public_repository_and_floating_version_are_rejected"
+      ],
+      "remaining": [
+        "Real authenticated private repository/release access remains unverified; no Git repository is configured in this checkout."
+      ]
+    },
+    {
+      "id": "D07",
+      "requirement": "Verify packaged artifacts, checksums/provenance, dependency versions, and executable check-pack trust.",
+      "status": "partial",
+      "sources": [
+        "tools/build_release.py"
+      ],
+      "tests": [
+        "tests/test_release.py::ReleaseTests.test_wheel_and_source_include_license_and_new_probe_without_state"
+      ],
+      "remaining": [
+        "Exhaustive transitive dependency and external environment provenance remains open."
+      ]
+    },
+    {
+      "id": "D08",
+      "requirement": "Make setup idempotent, validate capabilities, preview configuration changes, preserve unrelated settings, and respect required hook trust.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/host.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_host_install_preserves_existing_and_changed_files"
+      ],
+      "remaining": [
+        "Safe idempotent in-place upgrades and real host trust flows remain open."
+      ]
+    },
+    {
+      "id": "D09",
+      "requirement": "Support safe upgrades, rollback, and uninstall without deleting user code or unrelated host configuration.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/host.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_host_uninstall_rejects_modified_owned_file"
+      ],
+      "remaining": [
+        "Broader installed upgrade/rollback and old-version removal fixtures remain open."
+      ]
+    },
+    {
+      "id": "D10",
+      "requirement": "Keep runtime evidence/memory outside committed package files; document what uninstall retains or deletes.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "D11",
+      "requirement": "Test Windows/macOS/Linux, spaces/Unicode, symlinks, containers, remote workspaces, monorepos, restricted networks, and lack of administrator privileges where advertised.",
+      "status": "partial",
+      "sources": [
+        "tools/validate_release.py"
+      ],
+      "tests": [
+        "tests/test_web.py::WebTests.test_monorepo_package_hoisted_tools_have_distinct_ids"
+      ],
+      "remaining": [
+        "Execute manual OS/Python matrix and additional advertised deployment environments."
+      ]
+    },
+    {
+      "id": "D12",
+      "requirement": "Cloud installation must put required software in the actual execution environment; downloading Markdown alone does not supply runtime capability.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "D13",
+      "requirement": "Keep CI optional and local-first; document private-repository quotas and enforce spending limits before enabling hosted automation.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "Q01",
+      "requirement": "Unit/contract tests for event parsing, check manifests, result normalization, evidence references, lifecycle transitions, and configuration.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "Q02",
+      "requirement": "Seeded-defect fixtures for supported compiler/test/browser/database/API/RAG/model scenarios.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/scenario_probe.py"
+      ],
+      "tests": [
+        "tests/test_scenarios.py::ScenarioTests.test_real_tenant_matrix_detects_leak_and_clean_denial"
+      ],
+      "remaining": [
+        "Broader real model/service/customer fixtures remain open."
+      ]
+    },
+    {
+      "id": "Q03",
+      "requirement": "Clean and intentionally unusual fixtures to measure false positives, including legitimate overlays and valid explicit failure behavior.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/browser_probe.py",
+        "tools/validate_browser_interactions.py::validate"
+      ],
+      "tests": [],
+      "remaining": [
+        "tools/validate_browser_interactions.py covers intentional overlays; broader clean/unusual cases remain open."
+      ]
+    },
+    {
+      "id": "Q04",
+      "requirement": "Host adapter tests for actual advertised same-session delivery and visible fallback behavior.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "Q05",
+      "requirement": "Rapid changes/out-of-order completion tests to prevent stale alerts and false repair claims.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/engine.py"
+      ],
+      "tests": [
+        "tests/test_web.py::WebTests.test_restored_snapshot_is_current_and_survives_reopening"
+      ],
+      "remaining": [
+        "Broader concurrent rapid-change/out-of-order fixtures remain open."
+      ]
+    },
+    {
+      "id": "Q06",
+      "requirement": "Cancellation/restart/crash tests for process cleanup and consistent state.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/processes.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_crash_replay_does_not_duplicate_execution"
+      ],
+      "remaining": [
+        "Broader cancellation/static-parser interruption and other OS cleanup remain open."
+      ]
+    },
+    {
+      "id": "Q07",
+      "requirement": "Missing tools/credentials/network tests to prove blocked checks never become successes.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/native.py"
+      ],
+      "tests": [
+        "tests/test_web.py::WebTests.test_missing_tools_and_config_are_visible_blocks"
+      ],
+      "remaining": [
+        "Broader missing service/credential/network cases remain open."
+      ]
+    },
+    {
+      "id": "Q08",
+      "requirement": "Multi-session/worktree/worker tests for shared ports, datasets, locks, and finding isolation.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "Q09",
+      "requirement": "Secret-canary and hostile-output tests for redaction, prompt-injection resistance, and memory contamination.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/common.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_secret_canaries_redacted"
+      ],
+      "remaining": [
+        "Broader memory contamination and hostile host payload cases remain open."
+      ]
+    },
+    {
+      "id": "Q10",
+      "requirement": "Memory inspection/deletion/expiry/export tests; separate development and benchmark memories.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/maintenance.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_withdraw_scrubs_durable_memory_reply"
+      ],
+      "remaining": [
+        "Independent benchmark/development memory isolation certification remains open."
+      ]
+    },
+    {
+      "id": "Q11",
+      "requirement": "Installation/upgrade/uninstall tests that preserve unrelated host settings.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/host.py"
+      ],
+      "tests": [
+        "tests/test_runtime.py::RuntimeTests.test_host_uninstall_rejects_modified_owned_file"
+      ],
+      "remaining": [
+        "Broader actual host upgrades/removal acceptance remains open."
+      ]
+    },
+    {
+      "id": "Q12",
+      "requirement": "Resource/latency/cost tests so monitoring overhead does not overwhelm coding work.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "Q13",
+      "requirement": "Held-out evaluations for changes to checks, prompts, memory retrieval, or trained components.",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/learning.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_local_ranking_requires_authorization_and_heldout"
+      ],
+      "remaining": [
+        "Independent held-out detector and agent effectiveness evaluations remain open."
+      ]
+    },
+    {
+      "id": "B01",
+      "requirement": "Compare the same agent with and without the companion using identical repository snapshots, prompts, model/settings, tools, hardware, limits, and budgets.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "B02",
+      "requirement": "Count the companion's compute, wall time, tokens, API spending, and user intervention in total cost.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "B03",
+      "requirement": "Measure confirmed-defect precision/recall by category/severity, false alerts, correct localization, and missed important defects.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "B04",
+      "requirement": "Measure verified completion, introduced regressions, time to detect, delivery delay, and time to verified repair.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "B05",
+      "requirement": "Measure duplicate/stale alerts, unnecessary edits, interruptions, blocked/inconclusive coverage, and check execution errors.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "B06",
+      "requirement": "Include realistic failures and clean cases; do not use only defects that were designed for the detector.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "B07",
+      "requirement": "Keep improvement data separate from held-out evaluations; prevent memory or answer leakage between runs.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "B08",
+      "requirement": "Repeat nondeterministic runs and use independent behavioral assertions; report uncertainty and compatibility limits.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "B09",
+      "requirement": "Optional competitor comparisons must control model/version/settings and total budgets; subscription tier names alone do not identify a model.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "B10",
+      "requirement": "Claim measured gains on tested tasks rather than universal superiority over another assistant.",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "C01",
+      "requirement": "Environment, dependencies, and setup",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "C02",
+      "requirement": "Source, static checks, and production builds",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/adapters.py"
+      ],
+      "tests": [
+        "tests/test_web.py::WebTests.test_reviewable_installed_web_specs_without_execution"
+      ],
+      "remaining": [
+        "Broader static/build language adapters and tool-specific parsers remain open."
+      ]
+    },
+    {
+      "id": "C03",
+      "requirement": "Test infrastructure and discovery",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/junit_probe.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_real_unittest_adapter_nonzero_tests"
+      ],
+      "remaining": [
+        "Repeatability, flaky/order-dependent and broader runner infrastructure probes remain open."
+      ]
+    },
+    {
+      "id": "C04",
+      "requirement": "Test quality and requirement coverage",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "C05",
+      "requirement": "Business logic and input boundaries",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "C06",
+      "requirement": "Rendered UI and interaction",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/browser_probe.py",
+        "tools/validate_browser_interactions.py::validate"
+      ],
+      "tests": [],
+      "remaining": [
+        "Actual browser fixtures live in tools/validate_browser_interactions.py; full interaction states/hydration/i18n remain open."
+      ]
+    },
+    {
+      "id": "C07",
+      "requirement": "Accessibility",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/browser_probe.py",
+        "tools/validate_browser_interactions.py::validate"
+      ],
+      "tests": [],
+      "remaining": [
+        "Actual browser fixtures live in tools/validate_browser_interactions.py; accessible names, contrast and complete keyboard scans remain open."
+      ]
+    },
+    {
+      "id": "C08",
+      "requirement": "APIs, integrations, and real-time protocols",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/api_probe.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_loopback_http_probe_real_contract"
+      ],
+      "remaining": [
+        "Streaming, webhook signatures/replay and real-time disconnect/reconnect probes remain open."
+      ]
+    },
+    {
+      "id": "C09",
+      "requirement": "Identity, authorization, and tenant isolation",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/scenario_probe.py"
+      ],
+      "tests": [
+        "tests/test_scenarios.py::ScenarioTests.test_real_tenant_matrix_detects_leak_and_clean_denial"
+      ],
+      "remaining": [
+        "Login/logout/revocation/CSRF/CORS and broader tenant stores remain open."
+      ]
+    },
+    {
+      "id": "C10",
+      "requirement": "Security and supply chain",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/packs.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_heuristics_remain_predicted_risks"
+      ],
+      "remaining": [
+        "Dependency advisories and active security/supply-chain probes remain open."
+      ]
+    },
+    {
+      "id": "C11",
+      "requirement": "Databases",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/sqlite_probe.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_readonly_sqlite_probe_real_foreign_key_repair"
+      ],
+      "remaining": [
+        "Other databases, query plans, transactions/isolation, contention and representative performance remain open."
+      ]
+    },
+    {
+      "id": "C12",
+      "requirement": "Migrations, retention, and recovery",
+      "status": "unassessed",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Map individual runtime behavior and concrete acceptance cases before assessing completion."
+      ]
+    },
+    {
+      "id": "C13",
+      "requirement": "Data pipelines",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/packs.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_data_pack_real_rows_and_orphans"
+      ],
+      "remaining": [
+        "Live pipelines/checkpoint/replay/freshness probes remain open."
+      ]
+    },
+    {
+      "id": "C14",
+      "requirement": "Queues, workers, schedules, and caching",
+      "status": "deferred",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Implement customer queue/cache/schedule behavior probes; the companion scheduler is not customer coverage."
+      ]
+    },
+    {
+      "id": "C15",
+      "requirement": "Concurrency",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/scenario_probe.py"
+      ],
+      "tests": [
+        "tests/test_scenarios.py::ScenarioTests.test_concurrent_lost_update_and_post_batch_invariant"
+      ],
+      "remaining": [
+        "Broader transactional races and deployment/worker concurrency remain open."
+      ]
+    },
+    {
+      "id": "C16",
+      "requirement": "Traffic and capacity",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/packs.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_measured_performance_pack_and_missing_workload"
+      ],
+      "remaining": [
+        "Live bounded load/spike/stress/endurance generation remains open."
+      ]
+    },
+    {
+      "id": "C17",
+      "requirement": "Resilience and failure behavior",
+      "status": "deferred",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Implement dependency-failure, recovery and shutdown probes with declared expectations."
+      ]
+    },
+    {
+      "id": "C18",
+      "requirement": "Deployment, networking, and operations",
+      "status": "deferred",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Implement deployment/networking/operations probes for explicitly authorized environments."
+      ]
+    },
+    {
+      "id": "C19",
+      "requirement": "RAG ingestion and retrieval",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/packs.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_rag_pack_tenant_leak_and_staleness"
+      ],
+      "remaining": [
+        "Live ingestion/OCR/embedding/retrieval probes remain open."
+      ]
+    },
+    {
+      "id": "C20",
+      "requirement": "AI applications and agents",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/packs.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_ai_pack_requires_actual_assertions"
+      ],
+      "remaining": [
+        "Live model/tool/streaming/injection evaluations remain open."
+      ]
+    },
+    {
+      "id": "C21",
+      "requirement": "Open-source/local model integration and serving",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/packs.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_model_pack_exact_artifact_and_context"
+      ],
+      "remaining": [
+        "Live serving/hardware/cancellation/out-of-memory probes remain open."
+      ]
+    },
+    {
+      "id": "C22",
+      "requirement": "Training and fine-tuning projects",
+      "status": "partial",
+      "sources": [
+        "src/coding_companion/packs.py"
+      ],
+      "tests": [
+        "tests/test_features.py::FeatureTests.test_training_pack_split_leakage"
+      ],
+      "remaining": [
+        "Live optimization/distributed/checkpoint/training execution remains open."
+      ]
+    },
+    {
+      "id": "C23",
+      "requirement": "Specialized extensions",
+      "status": "deferred",
+      "sources": [],
+      "tests": [],
+      "remaining": [
+        "Implement specialized extension contracts and adapters when target projects require them."
+      ]
+    }
+  ]
+}

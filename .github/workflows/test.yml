@@ -1,0 +1,35 @@
+name: Runtime acceptance
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  core:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        python: ['3.12', '3.13', '3.14']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python tools/validate_release.py --output dist/validation-${{ matrix.os }}-${{ matrix.python }}.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: validation-${{ matrix.os }}-${{ matrix.python }}
+          path: |
+            dist/validation-*.json
+            .companion/validation-*/*.log
+          retention-days: 7
+  optional-sdk:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install --target .companion/optional-deps mcp==2.0.0 jsonschema==4.26.0
+      - run: python tools/validate_optional.py --dependencies .companion/optional-deps

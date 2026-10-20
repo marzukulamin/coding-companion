@@ -1,0 +1,63 @@
+{
+  "contract": "check_manifest",
+  "schema_version": "1.0",
+  "check_id": "python.pytest",
+  "version": "0.1.0",
+  "category": "tests",
+  "profile": "integration",
+  "inputs": [
+    "pyproject.toml",
+    "tests/**",
+    "src/**"
+  ],
+  "triggers": [
+    "explicit_request",
+    "settled_source_change"
+  ],
+  "argv": [
+    "{python}",
+    "-m",
+    "pytest",
+    "--junitxml",
+    "{artifact_dir}/pytest.xml"
+  ],
+  "cwd": "snapshot_root",
+  "parser": "junit_xml",
+  "prerequisites": [
+    "approved_command",
+    "pytest",
+    "faithful_test_snapshot"
+  ],
+  "risk": "isolated_execution",
+  "network": "none",
+  "cost": "no_service_fee",
+  "timeout_seconds": 180,
+  "applicability": {
+    "languages": [
+      "python"
+    ],
+    "frameworks": [
+      "pytest"
+    ],
+    "runtime_versions": [
+      "3.12+"
+    ]
+  },
+  "permission_scope": [
+    "approved_snapshot_root",
+    "private_artifact_dir"
+  ],
+  "resources": {
+    "max_output_bytes": 2097152,
+    "max_artifact_bytes": 10485760,
+    "max_memory_mib": 512,
+    "limit_enforcement": "capability_reported"
+  },
+  "verification_check_ids": [
+    "python.pytest"
+  ],
+  "count_semantics": {
+    "kind": "tests",
+    "required_min_executed": 1
+  }
+}

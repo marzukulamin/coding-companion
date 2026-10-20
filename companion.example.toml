@@ -1,0 +1,14 @@
+# Runtime v0.1 resource configuration, loaded only with --config PATH.
+# This file cannot grant permissions or enable remote processing/training.
+[resources]
+max_files = 20000
+max_file_bytes = 5242880
+max_inventory_bytes = 67108864
+max_output_bytes = 2097152
+max_state_bytes = 268435456
+timeout_seconds = 60
+poll_seconds = 2.0
+debounce_seconds = 0.75
+max_mailbox_files = 100
+request_timeout_seconds = 65
+memory_enabled = true

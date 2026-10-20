@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "coding-companion"
+version = "0.4.1"
+description = "Local, model-independent diagnostics for coding agents"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = []
+
+[project.optional-dependencies]
+# Optional adapter source targets this SDK; real host certification is separate.
+mcp = ["mcp==2.0.0"]
+browser = ["playwright==1.63.0"]
+
+[project.scripts]
+companion = "coding_companion.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+coding_companion = ["*.mjs", "resources/*.sql", "resources/*.json", "resources/skill/*.md", "resources/skill/references/*.md"]

@@ -1,0 +1,103 @@
+# Design example only. It does not execute commands or install an agent skill.
+schema_version = "1.0"
+
+[project]
+root = "."
+name = "local-project"
+timezone = "Asia/Dhaka"
+
+[runtime]
+minimum_python = "3.12"
+coordinator_mode = "session"
+ipc = "file_mailbox"
+max_expensive_workers = 1
+max_fast_workers = 2
+idle_shutdown_seconds = 300
+
+[storage]
+location = "user_state"
+journal_mode = "delete"
+synchronous = "full"
+fts = "auto"
+busy_timeout_ms = 3000
+max_state_mib = 256
+
+[watch]
+enabled = false
+debounce_ms = 750
+active_poll_seconds = 2
+idle_poll_seconds = 10
+reconcile_seconds = 60
+max_inventory_files = 20000
+max_hash_file_mib = 5
+exclude = [".git", "node_modules", ".venv", "__pycache__", "dist", "build"]
+
+[execution]
+approved_check_ids = []
+auto_install = false
+production_mutation = false
+remote_network = false
+loopback_network = false
+inherit_credentials = false
+require_isolation_for_untrusted = true
+fast_timeout_seconds = 60
+integration_timeout_seconds = 180
+max_output_mib = 2
+max_artifact_mib = 10
+max_message_mib = 1
+
+[cost]
+max_external_cost_usd = 0
+allow_paid_probes = false
+block_unknown_remote_cost = true
+
+[notifications]
+agent_delivery = "capability_detected"
+fallback = "cli_checkpoints"
+human_notifications = "action_required"
+max_digest_chars = 4000
+deduplicate = true
+
+[memory]
+enabled = true
+scope = "project"
+record_challenges_from = ["coding_agent", "companion", "user", "external_tool"]
+store_raw_transcripts = false
+challenge_retention_days = 90
+lesson_revalidate_days = 90
+artifact_retention_days = 7
+max_retrieved_lessons = 5
+cross_project_sharing = false
+
+[learning]
+feedback_statistics = true
+auto_promote_verified_nonexecutable_lessons = false
+self_repair_proposals = true
+activation_policy = "reviewed"
+keep_last_known_good = true
+local_training_enabled = false
+max_training_seconds = 0
+remote_training = false
+# Recorded user prohibition, not a switch controlling a model provider's policies.
+# Runtime validation rejects true; project/session overrides cannot relax it.
+# Optional external processing needs separately established provider data-use controls.
+# This does not alter how the provider handles the existing coding-agent conversation.
+use_project_for_provider_base_training = false
+
+[privacy]
+telemetry = false
+remote_analysis = false
+remote_upload = false
+redact_before_persistence = true
+store_secrets = false
+
+[maintenance]
+enabled = true
+run_at_session_start = true
+external_scheduler_installed = false
+automatic_dependency_updates = false
+
+[host]
+adapter = "manual"
+compatibility_status = "documented_not_tested"
+same_turn_delivery = "unverified"

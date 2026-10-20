@@ -1,0 +1,90 @@
+{
+  "matrix_version": "1.0",
+  "core_protocol": "1.0",
+  "entries": [
+    {
+      "host": "generic_shell_agent",
+      "adapter": "cli",
+      "status": "documented_not_tested",
+      "host_version": null,
+      "same_turn_delivery": "checkpoint",
+      "runtime_location": "local_or_sandbox",
+      "fallback": "report_export"
+    },
+    {
+      "host": "codex_local",
+      "adapter": "trusted_hooks",
+      "status": "documented_not_tested",
+      "host_version": null,
+      "same_turn_delivery": "safe_point_documented",
+      "runtime_location": "local",
+      "fallback": "cli_checkpoints"
+    },
+    {
+      "host": "claude_code",
+      "adapter": "host_hooks_or_cli",
+      "status": "documented_not_tested",
+      "host_version": null,
+      "same_turn_delivery": "requires_adapter_test",
+      "runtime_location": "local",
+      "fallback": "cli_checkpoints"
+    },
+    {
+      "host": "chatgpt_tool_environment",
+      "adapter": "sandbox_cli_or_supported_connector",
+      "status": "documented_not_tested",
+      "host_version": null,
+      "same_turn_delivery": "host_dependent",
+      "runtime_location": "sandbox_or_authorized_executor",
+      "fallback": "report_export"
+    },
+    {
+      "host": "plain_chat_without_tools",
+      "adapter": "report_export",
+      "status": "documented_not_tested",
+      "host_version": null,
+      "same_turn_delivery": "unsupported",
+      "runtime_location": "none",
+      "fallback": "manual_user_supplied_report"
+    },
+    {
+      "host": "mcp_stdio_host",
+      "adapter": "mcp_stdio",
+      "status": "documented_not_tested",
+      "host_version": null,
+      "same_turn_delivery": "not_implied_by_mcp",
+      "runtime_location": "host_spawned_local",
+      "fallback": "cli_checkpoints"
+    },
+    {
+      "host": "local_model_with_harness",
+      "adapter": "cli_or_mcp",
+      "status": "documented_not_tested",
+      "host_version": null,
+      "same_turn_delivery": "harness_dependent",
+      "runtime_location": "local",
+      "fallback": "report_export"
+    }
+  ],
+  "certification_scope": "Entries describe actual agent-host integration; local adapter/transport fixtures are recorded separately.",
+  "local_adapter_evidence": [
+    {
+      "adapter": "mcp_stdio",
+      "fixture": "tools/validate_optional.py::validate_mcp",
+      "scope": "Official SDK client/server transport, not an actual agent host",
+      "results": "dist/validation.json"
+    },
+    {
+      "adapter": "codex_hook",
+      "fixture": "tests/test_features.py::FeatureTests.test_real_hook_context_and_reused_snapshot",
+      "scope": "Local configuration/payload behavior, not live active-turn delivery"
+    },
+    {
+      "adapter": "codex_hooks",
+      "fixture": "tools/validate_codex.py::validate",
+      "host_version": "codex-cli 0.160.1",
+      "scope": "Actual app-server initialization and hook discovery; direct seeded/clean hook execution; active-turn delivery not certified",
+      "results": ".companion/codex-validation.json"
+    }
+  ]
+}

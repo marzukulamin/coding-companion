@@ -1,0 +1,237 @@
+[
+  {
+    "contract": "event",
+    "schema_version": "1.0",
+    "event_id": "12579465-3de1-4a16-bb40-3fac69bf6e83",
+    "project_id": "project-example",
+    "session_id": "session-example",
+    "producer": "watcher",
+    "event_type": "file_change",
+    "created_at": "2026-10-12T12:00:00Z",
+    "payload": {
+      "paths": [
+        "src/app.py"
+      ],
+      "profile": "fast",
+      "scope": "changed"
+    }
+  },
+  {
+    "contract": "check_result",
+    "schema_version": "1.0",
+    "run_id": "run-example",
+    "snapshot_id": "snapshot-example",
+    "check_id": "python.pytest",
+    "check_version": "0.1.0",
+    "outcome": "inconclusive",
+    "completeness": "none",
+    "exit_code": 0,
+    "counts": {
+      "discovered": 0,
+      "executed": 0,
+      "skipped": 0
+    },
+    "findings": [],
+    "reasons": [
+      "Synthetic example: zero tests were discovered; suite verification is incomplete."
+    ]
+  },
+  {
+    "contract": "challenge",
+    "schema_version": "1.0",
+    "challenge_id": "challenge-example",
+    "actor": "companion",
+    "kind": "parser_failure",
+    "stage": "test_report_normalization",
+    "goal": "Determine whether requested tests ran.",
+    "symptoms": "The report format is unsupported by this parser version.",
+    "attempts": [
+      {
+        "action": "Parse the synthetic report.",
+        "result": "Unsupported report version.",
+        "outcome": "failed",
+        "evidence": [
+          "artifact-synthetic-report"
+        ],
+        "recorded_at": "2026-10-12T12:00:00Z",
+        "provenance": {
+          "actor": "companion",
+          "source_ids": [
+            "artifact-synthetic-report"
+          ],
+          "recorded_at": "2026-10-12T12:00:00Z",
+          "privacy_class": "project_private"
+        }
+      }
+    ],
+    "evidence": [
+      "artifact-synthetic-report"
+    ],
+    "state": "open",
+    "created_at": "2026-10-12T12:00:00Z",
+    "constraints": [
+      "Synthetic offline fixture."
+    ],
+    "hypotheses": [],
+    "applicability": [
+      "parser-version-example"
+    ],
+    "provenance": {
+      "actor": "companion",
+      "source_ids": [
+        "artifact-synthetic-report"
+      ],
+      "recorded_at": "2026-10-12T12:00:00Z",
+      "privacy_class": "project_private"
+    },
+    "updated_at": "2026-10-12T12:00:00Z"
+  },
+  {
+    "contract": "finding",
+    "schema_version": "1.0",
+    "finding_id": "finding-example",
+    "rule_id": "browser.hit_test",
+    "rule_version": "0.1.0",
+    "run_id": "run-browser",
+    "snapshot_id": "snapshot-example",
+    "fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "classification": "confirmed_defect",
+    "category": "ui",
+    "severity": "high",
+    "confidence": "high",
+    "title": "Synthetic example: submit button is obscured.",
+    "expected": "The declared submit interaction can reach the button.",
+    "expected_basis": "Synthetic acceptance criterion.",
+    "actual": "A synthetic hit test selects the footer.",
+    "locations": [
+      {
+        "path": "src/Form.tsx",
+        "content_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "line": 12
+      }
+    ],
+    "evidence": [
+      "artifact-synthetic-hit-test"
+    ],
+    "reproduction": {
+      "check_id": "browser.hit_test",
+      "instructions": "Run the configured synthetic mobile interaction."
+    },
+    "suggested_next_step": "Inspect positioning and rerun the interaction.",
+    "verification_check_ids": [
+      "browser.hit_test"
+    ],
+    "freshness": "current",
+    "created_at": "2026-10-12T12:00:00Z"
+  },
+  {
+    "contract": "feedback",
+    "schema_version": "1.0",
+    "finding_id": "finding-example",
+    "outcome": "diagnosis_wrong",
+    "reason": "Synthetic review rejects the original causal hypothesis.",
+    "provenance": {
+      "actor": "companion",
+      "source_ids": [
+        "artifact-synthetic-report"
+      ],
+      "recorded_at": "2026-10-12T12:00:00Z",
+      "privacy_class": "project_private"
+    }
+  },
+  {
+    "contract": "lesson",
+    "schema_version": "1.0",
+    "lesson_id": "lesson-example",
+    "challenge_id": "challenge-example",
+    "scope": "project",
+    "status": "candidate",
+    "summary": "Synthetic candidate: report versions need explicit parser negotiation.",
+    "tags": [
+      "parser"
+    ],
+    "applicability": [
+      "parser-version-example"
+    ],
+    "evidence": [
+      "artifact-synthetic-report"
+    ],
+    "provenance": {
+      "actor": "companion",
+      "source_ids": [
+        "artifact-synthetic-report"
+      ],
+      "recorded_at": "2026-10-12T12:00:00Z",
+      "privacy_class": "project_private"
+    }
+  },
+  {
+    "contract": "improvement",
+    "schema_version": "1.0",
+    "candidate_id": "candidate-example",
+    "challenge_id": "challenge-example",
+    "kind": "code",
+    "base_version": "0.1.0",
+    "base_package_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "proposed_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "evaluator_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "heldout_fixture_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "state": "proposed",
+    "evaluation_passed": false,
+    "created_at": "2026-10-12T12:00:00Z"
+  },
+  {
+    "contract": "capabilities",
+    "schema_version": "1.0",
+    "host": "synthetic-host",
+    "host_version": null,
+    "status": "documented_not_tested",
+    "delivery": "checkpoint",
+    "available_check_ids": [],
+    "blocked_check_ids": [
+      "browser.hit_test"
+    ],
+    "enforced_limits": [],
+    "best_effort_limits": []
+  },
+  {
+    "contract": "response",
+    "schema_version": "1.0",
+    "request_id": "12579465-3de1-4a16-bb40-3fac69bf6e83",
+    "project_id": "project-example",
+    "status": "incomplete",
+    "run_ids": [
+      "run-example"
+    ],
+    "finding_ids": [],
+    "completeness": "none",
+    "reasons": [
+      "Synthetic run discovered no tests."
+    ],
+    "result_ref": {
+      "root": "request_bodies",
+      "path": "results/synthetic.json",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "size_bytes": 100,
+      "content_contract": "check_result"
+    },
+    "created_at": "2026-10-12T12:00:00Z"
+  },
+  {
+    "contract": "job_status",
+    "schema_version": "1.0",
+    "run_id": "run-example",
+    "snapshot_id": "snapshot-example",
+    "check_id": "python.pytest",
+    "state": "finished",
+    "completeness": "none",
+    "result_ref": {
+      "root": "request_bodies",
+      "path": "results/synthetic.json",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "size_bytes": 100,
+      "content_contract": "check_result"
+    },
+    "created_at": "2026-10-12T12:00:00Z"
+  }
+]

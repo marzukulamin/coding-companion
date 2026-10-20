@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Coding Companion runtime response envelope 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "request_id", "project_id", "privacy_epoch", "status", "result"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "request_id": {"type": "string", "format": "uuid"},
+    "project_id": {"type": "string", "pattern": "^[0-9a-f]{32}$"},
+    "privacy_epoch": {"type": "integer", "minimum": 0},
+    "status": {"type": "string"},
+    "result": {"type": "object"}
+  }
+}
